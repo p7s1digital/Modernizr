@@ -38,7 +38,7 @@ define(['Modernizr', 'createElement', 'test/cookies'], function(Modernizr, creat
 
   Modernizr.addAsyncTest(function() {
 
-    var thirdPartyTestURL = 'http://hbbtv-extern-fe01.sim-technik.de/chethan/send_callback.php';
+    var thirdPartyTestURL = 'http://hbbtv-extern-fe01.sim-technik.de/hybridtv/modernizr/cookies3rdparty.php';
 
     jsonp(thirdPartyTestURL + '?type=set', function(error) {
       if (error) {
