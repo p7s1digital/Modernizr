@@ -40,12 +40,12 @@ if (array_key_exists('type', $_GET)) {
 
 define(['Modernizr', 'createElement', 'addTest', 'test/cookies'], function(Modernizr, createElement) {
 
-  if (!Modernizr.cookies) {
-    Modernizr.addTest('cookies3rdparty', false);
-    return;
-  }
-
   Modernizr.addAsyncTest(function() {
+
+    if (!Modernizr.cookies) {
+      Modernizr.addTest('cookies3rdparty', false);
+      return;
+    }
 
     var thirdPartyTestURL = 'http://hbbtv-extern-fe01.sim-technik.de/hybridtv/modernizr/cookies3rdparty.php';
 
