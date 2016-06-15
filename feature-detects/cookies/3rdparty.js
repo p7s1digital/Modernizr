@@ -11,6 +11,10 @@ Detects whether cross domain 3rd party cookie access is supported.
 
 ```PHP
 <?php
+header('Cache-Control: no-cache, must-revalidate'); //HTTP 1.1
+header('Pragma: no-cache'); //HTTP 1.0
+header('Expires: Thu, 01 Jan 1970 00:00:00 GMT'); // Date in the past
+
 $cookie_name = 'test';
 $cookie_val = '1';
 
@@ -21,7 +25,7 @@ if (array_key_exists('type', $_GET)) {
       echo $_GET['callback'] . '()';
       break;
     case 'exists':
-      $cookie_exists = array_key_exists($cookie_name, $_COOKIES) && $_COOKIES[$cookie_name] == $cookie_val;
+      $cookie_exists = isset($_COOKIES) && array_key_exists($cookie_name, $_COOKIES) && $_COOKIES[$cookie_name] == $cookie_val;
       echo $_GET['callback'] . '(' . ($cookie_exists ? 'true' : 'false') . ')';
       break;
     case 'clear':
@@ -29,12 +33,17 @@ if (array_key_exists('type', $_GET)) {
       echo $_GET['callback'] . '()';
       break;
   }
-}
+}<
 ?>
 ```
 */
 
-define(['Modernizr', 'createElement', 'test/cookies'], function(Modernizr, createElement) {
+define(['Modernizr', 'createElement', 'addTest', 'test/cookies'], function(Modernizr, createElement) {
+
+  if (!Modernizr.cookies) {
+    Modernizr.addTest('cookies3rdparty', false);
+    return;
+  }
 
   Modernizr.addAsyncTest(function() {
 
