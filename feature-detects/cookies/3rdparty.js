@@ -21,20 +21,19 @@ $cookie_val = '1';
 if (array_key_exists('type', $_GET)) {
   switch ($_GET['type']) {
     case 'set':
-      setcookie($cookie_name, $cookie_val, time() + 60, "/");
+      setcookie($cookie_name, $cookie_val, time() + 60, '/');
       echo $_GET['callback'] . '()';
       break;
     case 'exists':
-      $cookie_exists = isset($_COOKIES) && array_key_exists($cookie_name, $_COOKIES) && $_COOKIES[$cookie_name] == $cookie_val;
+      $cookie_exists = isset($_COOKIE) && array_key_exists($cookie_name, $_COOKIE) && $_COOKIE[$cookie_name] == $cookie_val;
       echo $_GET['callback'] . '(' . ($cookie_exists ? 'true' : 'false') . ')';
       break;
     case 'clear':
-      setcookie($cookie_name, $cookie_val, 0, "/");
+      setcookie($cookie_name, $cookie_val, 0, '/');
       echo $_GET['callback'] . '()';
       break;
   }
-}<
-?>
+}
 ```
 */
 
